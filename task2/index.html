@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoffeeGo — кофе с характером</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">Coffee<em>Go</em></a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+      <label for="nav-toggle" class="burger" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav">
+        <ul class="nav__list">
+          <li><a href="#features" class="nav__link">Преимущества</a></li>
+          <li><a href="#menu" class="nav__link">Меню</a></li>
+          <li><a href="#contact" class="nav__link nav__link--cta">Заказать</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="tag">Свежая обжарка каждое утро</span>
+        <h1 class="hero__title">Кофе, который <span class="accent">будит</span> город</h1>
+        <p class="hero__text">
+          Авторские напитки из отборных зёрен за 15 минут.
+          Первый заказ — со скидкой 20%.
+        </p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--primary">Заказать сейчас</a>
+          <a href="#menu" class="btn btn--ghost">Смотреть меню</a>
+        </div>
+      </div>
+      <div class="hero__image">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80" alt="Чашка кофе">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="head">
+        <span class="tag">Почему мы</span>
+        <h2>Кофе на уровень выше</h2>
+      </div>
+
+      <div class="grid grid--3">
+        <article class="card card--peach">
+          <div class="card__icon">01</div>
+          <h3>Свежая обжарка</h3>
+          <p>Обжариваем зёрна каждое утро — вкус яркий и чистый.</p>
+        </article>
+        <article class="card card--mint">
+          <div class="card__icon">02</div>
+          <h3>Быстрая доставка</h3>
+          <p>Курьер приезжает в среднем за 15 минут по городу.</p>
+        </article>
+        <article class="card card--lavender">
+          <div class="card__icon">03</div>
+          <h3>Эко-упаковка</h3>
+          <p>Стаканчики из перерабатываемых материалов.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MENU ===== -->
+  <section class="section" id="menu">
+    <div class="container">
+      <div class="head">
+        <span class="tag">Меню</span>
+        <h2>Хиты продаж</h2>
+      </div>
+
+      <div class="grid grid--4">
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&q=80" alt="Капучино">
+          <div class="product__body">
+            <h3>Капучино</h3>
+            <div class="product__row">
+              <span>250 ₽</span>
+              <button type="button" aria-label="Добавить">+</button>
+            </div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Латте">
+          <div class="product__body">
+            <h3>Латте</h3>
+            <div class="product__row">
+              <span>280 ₽</span>
+              <button type="button" aria-label="Добавить">+</button>
+            </div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Эспрессо">
+          <div class="product__body">
+            <h3>Эспрессо</h3>
+            <div class="product__row">
+              <span>180 ₽</span>
+              <button type="button" aria-label="Добавить">+</button>
+            </div>
+          </div>
+        </article>
+        <article class="product">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80" alt="Раф">
+          <div class="product__body">
+            <h3>Раф</h3>
+            <div class="product__row">
+              <span>300 ₽</span>
+              <button type="button" aria-label="Добавить">+</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section" id="contact">
+    <div class="container contact">
+      <div class="contact__info">
+        <span class="tag">Контакты</span>
+        <h2>Закажите кофе прямо сейчас</h2>
+        <p class="contact__text">Оставьте заявку — перезвоним в течение 5 минут.</p>
+        <ul class="contacts">
+          <li><span class="contacts__icon">A</span> Москва, ул. Кофейная, 12</li>
+          <li><span class="contacts__icon">T</span> +7 (999) 123-45-67</li>
+          <li><span class="contacts__icon">E</span> hello@coffeego.ru</li>
+        </ul>
+      </div>
+
+      <form class="form" novalidate>
+        <label class="form__field">
+          <span class="form__label">Имя</span>
+          <input type="text" placeholder="Как вас зовут?" required>
+        </label>
+        <label class="form__field">
+          <span class="form__label">Email</span>
+          <input type="email" placeholder="you@example.com" required>
+        </label>
+        <label class="form__field">
+          <span class="form__label">Сообщение</span>
+          <textarea rows="4" placeholder="Что хотите заказать?" required></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary form__btn">Отправить заявку</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="#" class="logo logo--light">Coffee<em>Go</em></a>
+      <p>© 2026 CoffeeGo. Сделано с любовью к кофе.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
