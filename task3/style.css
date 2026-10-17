@@ -1,0 +1,186 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --bg: #fdf9f4;
+  --surface: #fff;
+  --dark: #1a120b;
+  --text: #3a2d22;
+  --muted: #7a6a5c;
+  --primary: #e07a3f;
+  --primary-dark: #c25f28;
+  --success: #22a06b;
+  --danger: #d64545;
+  --peach: #ffe6d4;
+  --radius: 16px;
+  --t: 0.25s ease;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.game {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.game__header { text-align: center; margin-bottom: 28px; }
+
+.game__title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin: 0 0 8px;
+  color: var(--dark);
+}
+
+.game__subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: .95rem;
+}
+
+.game__panel {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 12px 32px rgba(26,18,11,.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field__label { font-weight: 600; color: var(--dark); }
+
+.field__input {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 18px;
+  font-size: 1.6rem;
+  letter-spacing: .4em;
+  text-align: center;
+  color: var(--dark);
+  background: #faf6f1;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  transition: border-color var(--t), background var(--t), box-shadow var(--t);
+  font-family: ui-monospace, monospace;
+}
+
+.field__input:hover { background: #f5efe8; }
+
+.field__input:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(224,122,63,.15);
+}
+
+.field__input:disabled { opacity: .6; cursor: not-allowed; }
+
+.game__buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.btn {
+  flex: 1;
+  min-width: 140px;
+  min-height: 48px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: transform var(--t), background var(--t), border-color var(--t);
+}
+
+.btn--primary { background: var(--primary); color: #fff; }
+.btn--primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--dark);
+  border: 2px solid rgba(26,18,11,.14);
+}
+.btn--ghost:hover { border-color: var(--dark); transform: translateY(-2px); }
+
+.btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+
+.game__message {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: none;
+}
+.game__message:not(:empty) { display: block; }
+.game__message--error   { background: #fde8e8; color: var(--danger); }
+.game__message--success { background: #e5f6ec; color: var(--success); }
+.game__message--info    { background: var(--peach); color: var(--primary-dark); }
+
+.stats {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(26,18,11,.06);
+}
+
+.stats__item { display: flex; flex-direction: column; align-items: center; }
+.stats__label {
+  font-size: .8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.stats__value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.history { margin-top: 32px; }
+.history__title { font-size: 1.1rem; margin: 0 0 12px; color: var(--dark); }
+.history__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(26,18,11,.05);
+  animation: fade-in .3s ease;
+}
+
+.history__guess {
+  font-family: ui-monospace, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .3em;
+  color: var(--dark);
+}
+
+.history__result { font-size: .95rem; color: var(--muted); }
+.history__result strong { color: var(--dark); }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 600px) {
+  .game { padding: 40px 32px 80px; }
+  .game__panel { padding: 32px; }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Быки и коровы</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="game">
+    <header class="game__header">
+      <h1 class="game__title">Быки и коровы</h1>
+      <p class="game__subtitle">
+        Компьютер загадал 4 неповторяющиеся цифры.
+        Угадай за минимальное число попыток.
+      </p>
+    </header>
+
+    <section class="game__panel">
+      <label class="field">
+        <span class="field__label">Твоя попытка</span>
+        <input
+          type="text"
+          id="guess-input"
+          class="field__input"
+          maxlength="4"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="0000">
+      </label>
+
+      <div class="game__buttons">
+        <button type="button" id="check-btn" class="btn btn--primary">Проверить</button>
+        <button type="button" id="new-btn" class="btn btn--ghost">Новая игра</button>
+      </div>
+
+      <p class="game__message" id="message"></p>
+
+      <div class="stats">
+        <div class="stats__item">
+          <span class="stats__label">Попыток</span>
+          <span class="stats__value" id="attempts">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="history">
+      <h2 class="history__title">История попыток</h2>
+      <ul class="history__list" id="history"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
