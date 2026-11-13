@@ -69,6 +69,47 @@ h1 {
   color: #6b7280;
 }
 
+/* Массовые действия */
+.bulk-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.bulk-btn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bulk-btn:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.bulk-btn--danger {
+  color: #ef4444;
+  border-color: #fecaca;
+}
+
+.bulk-btn--danger:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.bulk-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Фильтры */
 .filters {
   display: flex;

@@ -1,24 +1,30 @@
-
+// --- Состояние приложения ---
 let tasks = [];               // { id, text, completed }
 let currentFilter = 'all';    // 'all' | 'active' | 'completed'
 let nextId = 1;
 
+// --- DOM ---
 const form = document.getElementById('add-form');
 const input = document.getElementById('task-input');
 const listEl = document.getElementById('task-list');
 const statsEl = document.getElementById('stats');
 const filtersEl = document.getElementById('filters');
 const emptyEl = document.getElementById('empty');
+const clearCompletedBtn = document.getElementById('clear-completed');
+const clearAllBtn = document.getElementById('clear-all');
 
+// --- Рендер ---
 function render() {
+  // Фильтрация
   const visible = tasks.filter(t => {
     if (currentFilter === 'active') return !t.completed;
     if (currentFilter === 'completed') return t.completed;
     return true;
   });
 
-  listEl.innerHTML = '';
-  visible.map(task => {
+  // Рендер через DocumentFragment (одна вставка в DOM)
+  const fragment = document.createDocumentFragment();
+  visible.forEach(task => {
     const li = document.createElement('li');
     li.className = 'task-item' + (task.completed ? ' completed' : '');
     li.dataset.id = task.id;
@@ -36,26 +42,34 @@ function render() {
     delBtn.textContent = 'Удалить';
 
     li.append(checkbox, span, delBtn);
-    listEl.append(li);
+    fragment.append(li);
   });
+  listEl.replaceChildren(fragment);
 
-  const completed = tasks.filter(t => t.completed).length;
-  statsEl.textContent = `Осталось: ${tasks.length - completed}, Выполнено: ${completed}`;
+  // Счётчики (один раз считаем completed)
+  const completedCount = tasks.filter(t => t.completed).length;
+  statsEl.textContent = `Осталось: ${tasks.length - completedCount}, Выполнено: ${completedCount}`;
 
+  // Сообщение о пустоте
   emptyEl.hidden = visible.length > 0;
+
+  // Доступность массовых кнопок
+  clearCompletedBtn.disabled = completedCount === 0;
+  clearAllBtn.disabled = tasks.length === 0;
 }
 
+// --- Добавление задачи ---
 form.addEventListener('submit', e => {
   e.preventDefault();
   const text = input.value.trim();
-  if (!text) return; 
+  if (!text) return;
 
   tasks.push({ id: nextId++, text, completed: false });
   input.value = '';
   render();
 });
 
-
+// --- Обработка кликов по списку (делегирование) ---
 listEl.addEventListener('click', e => {
   const li = e.target.closest('.task-item');
   if (!li) return;
@@ -64,14 +78,18 @@ listEl.addEventListener('click', e => {
   if (e.target.classList.contains('task-delete')) {
     tasks = tasks.filter(t => t.id !== id);
     render();
-  } else if (e.target.type === 'checkbox') {
+    return;
+  }
+
+  if (e.target.type === 'checkbox') {
     const task = tasks.find(t => t.id === id);
+    if (!task) return;
     task.completed = !task.completed;
     render();
   }
 });
 
-
+// --- Переключение фильтров ---
 filtersEl.addEventListener('click', e => {
   const btn = e.target.closest('.filter');
   if (!btn) return;
@@ -84,4 +102,16 @@ filtersEl.addEventListener('click', e => {
   render();
 });
 
+// --- Массовое удаление ---
+clearCompletedBtn.addEventListener('click', () => {
+  tasks = tasks.filter(t => !t.completed);
+  render();
+});
+
+clearAllBtn.addEventListener('click', () => {
+  tasks = [];
+  render();
+});
+
+// --- Первичный рендер ---
 render();
