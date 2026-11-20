@@ -1,0 +1,2 @@
+Игра на Canvas («Змейка»)
+move w a s d or by arrow
