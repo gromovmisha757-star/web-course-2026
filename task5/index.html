@@ -3,39 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Simon Says — Неоновый космос</title>
+  <title>Simon Synthesizer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="game">
-    <header class="game__header">
-      <h1 class="game__title">SIMON<span>SAYS</span></h1>
-      <p class="game__subtitle">Неоновый космос</p>
-    </header>
+  <main class="room">
+    <div class="synth">
 
-    <div class="game__hud">
-      <div class="hud-item">
-        <span class="hud-label">Уровень</span>
-        <span class="hud-value" id="level">0</span>
+      <div class="synth__top">
+        <div class="synth__screen-wrap">
+          <div class="synth__screen" id="screen">
+            <span class="screen__label">DISPLAY</span>
+            <span class="screen__color" id="screenColor">READY</span>
+            <span class="screen__sub" id="screenSub">нажми RESET</span>
+          </div>
+        </div>
+
+        <div class="synth__controls">
+          <div class="hud-block">
+            <div class="hud-block__row">
+              <span class="hud-block__label">LVL</span>
+              <span class="hud-block__value" id="level">0</span>
+            </div>
+            <div class="hud-block__row">
+              <span class="hud-block__label">BEST</span>
+              <span class="hud-block__value" id="best">0</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hud-item">
-        <span class="hud-label">Рекорд</span>
-        <span class="hud-value" id="best">0</span>
+
+      <div class="synth__keybed" id="keybed">
+        <button class="key key--red"    data-index="0" data-color="RED">
+          <span class="key__top"></span>
+          <span class="key__label">RED</span>
+        </button>
+        <button class="key key--blue"   data-index="1" data-color="BLUE">
+          <span class="key__top"></span>
+          <span class="key__label">BLUE</span>
+        </button>
+        <button class="key key--green"  data-index="2" data-color="GREEN">
+          <span class="key__top"></span>
+          <span class="key__label">GREEN</span>
+        </button>
+        <button class="key key--yellow" data-index="3" data-color="YELLOW">
+          <span class="key__top"></span>
+          <span class="key__label">YELLOW</span>
+        </button>
+        <button class="key key--purple" data-index="4" data-color="PURPLE">
+          <span class="key__top"></span>
+          <span class="key__label">PURPLE</span>
+        </button>
       </div>
+
+      <div class="synth__bottom">
+        <button class="start-btn" id="startBtn">RESET</button>
+        <span class="synth__brand">SIMON&nbsp;SYNTH&nbsp;·&nbsp;MODEL&nbsp;5</span>
+      </div>
+
     </div>
-
-    <div class="game__board" id="board">
-      <button class="pad pad--violet" data-index="0" aria-label="Фиолетовый сектор"></button>
-      <button class="pad pad--cyan"   data-index="1" aria-label="Голубой сектор"></button>
-      <button class="pad pad--lime"   data-index="2" aria-label="Лаймовый сектор"></button>
-      <button class="pad pad--amber"  data-index="3" aria-label="Янтарный сектор"></button>
-      <div class="game__core">
-        <button class="start-btn" id="startBtn">СТАРТ</button>
-        <p class="game__status" id="status">Нажми «Старт»</p>
-      </div>
-    </div>
-
-    <p class="game__hint">Повтори последовательность, которую покажет космос</p>
   </main>
 
   <script src="script.js" defer></script>
