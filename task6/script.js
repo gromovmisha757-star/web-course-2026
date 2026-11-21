@@ -1,16 +1,9 @@
 'use strict';
 
-/* ============================================================
-   Змейка — лабораторная №6
-   Игровой цикл: requestAnimationFrame + deltaTime
-   Логика и отрисовка разделены: update() / draw()
-   ============================================================ */
-
-/* ---------- Конфигурация ---------- */
-const COLS = 20;            // 20 клеток по горизонтали
-const ROWS = 20;            // 20 клеток по вертикали
-const CELL = 30;            // 30 px на клетку → canvas 600×600
-const MOVE_INTERVAL = 150;  // мс на одну клетку (постоянная скорость)
+const COLS = 20;
+const ROWS = 20;
+const CELL = 30;
+const MOVE_INTERVAL = 150;
 
 const DIRS = {
   up:    { x: 0,  y: -1 },
@@ -19,13 +12,11 @@ const DIRS = {
   right: { x: 1,  y: 0  },
 };
 
-/* ---------- Canvas ---------- */
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 canvas.width = COLS * CELL;
 canvas.height = ROWS * CELL;
 
-/* ---------- DOM ---------- */
 const scoreEl     = document.getElementById('score');
 const bestEl      = document.getElementById('best');
 const overlayEl   = document.getElementById('overlay');
@@ -33,11 +24,10 @@ const overlayTitle = document.getElementById('overlayTitle');
 const overlayText  = document.getElementById('overlayText');
 const startBtn    = document.getElementById('startBtn');
 
-/* ---------- Состояние ---------- */
 const state = {
-  snake: [],          // массив сегментов {x, y}, голова — [0]
-  dir: DIRS.right,    // текущее направление
-  nextDir: DIRS.right,// буфер для следующего шага
+  snake: [],
+  dir: DIRS.right,
+  nextDir: DIRS.right,
   apple: { x: 0, y: 0 },
   score: 0,
   best: Number(localStorage.getItem('snake_best') || 0),
@@ -49,9 +39,6 @@ const state = {
 let lastMoveTime = 0;
 let rafId = null;
 
-/* ============================================================
-   Инициализация и рестарт
-   ============================================================ */
 function resetState() {
   const midY = Math.floor(ROWS / 2);
   state.snake = [
@@ -89,9 +76,6 @@ function startGame() {
   rafId = requestAnimationFrame(loop);
 }
 
-/* ============================================================
-   Логика игры
-   ============================================================ */
 function spawnApple() {
   const free = [];
   for (let y = 0; y < ROWS; y++) {
@@ -102,7 +86,6 @@ function spawnApple() {
     }
   }
   if (free.length === 0) {
-    // победа — вся карта занята змейкой
     state.gameOver = true;
     return;
   }
@@ -110,11 +93,7 @@ function spawnApple() {
 }
 
 function checkCollision(head) {
-  // стены
   if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) return true;
-  // хвост (кроме последнего — он освободится, если не едим яблоко;
-  // но для простоты считаем столкновением с любым сегментом, кроме головы,
-  // потому что при перемещении без еды хвост уйдёт после проверки)
   for (let i = 1; i < state.snake.length; i++) {
     if (state.snake[i].x === head.x && state.snake[i].y === head.y) return true;
   }
@@ -122,7 +101,6 @@ function checkCollision(head) {
 }
 
 function moveSnake() {
-  // применяем буфер направления
   state.dir = state.nextDir;
 
   const head = state.snake[0];
@@ -145,7 +123,6 @@ function moveSnake() {
     }
     spawnApple();
     if (state.gameOver) {
-      // карта заполнена — победа
       state.running = false;
       showOverlay('Победа!', `Вы заполнили всё поле. Счёт: ${state.score}`, 'Играть снова');
     }
@@ -160,16 +137,11 @@ function gameOver() {
   showOverlay('Игра окончена', `Итоговый счёт: ${state.score}`, 'Начать заново');
 }
 
-/* ============================================================
-   Игровой цикл
-   ============================================================ */
 function loop(now) {
   if (!state.running) return;
 
   const delta = now - lastMoveTime;
 
-  // Двигаем змейку только когда прошло MOVE_INTERVAL мс.
-  // Так скорость не зависит от частоты кадров устройства.
   if (!state.paused && delta >= MOVE_INTERVAL) {
     lastMoveTime = now;
     update();
@@ -187,11 +159,9 @@ function update() {
 }
 
 function draw() {
-  // фон
   ctx.fillStyle = '#161b22';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // сетка
   ctx.strokeStyle = '#1f2630';
   ctx.lineWidth = 1;
   for (let x = 1; x < COLS; x++) {
@@ -207,7 +177,6 @@ function draw() {
     ctx.stroke();
   }
 
-  // яблоко
   const ax = state.apple.x * CELL + CELL / 2;
   const ay = state.apple.y * CELL + CELL / 2;
   ctx.fillStyle = '#f85149';
@@ -217,7 +186,6 @@ function draw() {
   ctx.fillStyle = '#56d364';
   ctx.fillRect(ax - 2, ay - CELL * 0.42, 4, 6);
 
-  // змейка
   state.snake.forEach((seg, i) => {
     const px = seg.x * CELL;
     const py = seg.y * CELL;
@@ -226,7 +194,6 @@ function draw() {
     roundRect(ctx, px + pad, py + pad, CELL - pad * 2, CELL - pad * 2, 6);
     ctx.fill();
 
-    // глаза у головы
     if (i === 0) {
       ctx.fillStyle = '#04210c';
       const eye = CELL * 0.12;
@@ -241,7 +208,6 @@ function draw() {
     }
   });
 
-  // пауза
   if (state.paused && state.running) {
     ctx.fillStyle = 'rgba(14,17,22,0.6)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -263,11 +229,7 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-/* ============================================================
-   Управление
-   ============================================================ */
 function setDirection(next) {
-  // запрет мгновенного разворота на 180°
   if (next.x === -state.dir.x && next.y === -state.dir.y) return;
   state.nextDir = next;
 }
@@ -291,9 +253,8 @@ document.addEventListener('keydown', (e) => {
 
 startBtn.addEventListener('click', startGame);
 
-/* ---------- Инициализация ---------- */
 bestEl.textContent = String(state.best);
 resetState();
-state.running = false;    // до нажатия «Начать» игра стоит
-state.snake = [];         // чтобы не рисовать до старта
+state.running = false;
+state.snake = [];
 draw();
